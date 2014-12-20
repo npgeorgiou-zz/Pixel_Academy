@@ -1,0 +1,1 @@
+java -cp PIXEL_ACADEMY.jar server.Server

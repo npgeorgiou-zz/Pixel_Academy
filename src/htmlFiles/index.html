@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Pixel Academy</title>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.js"></script>
+        <style>
+            body
+            {
+                margin: 0; 
+                min-width: 1000px;
+            }
+            /* unvisited link */
+            .header_stripe a:link {
+                text-decoration: none !important;
+                color: #616161;
+            }
+            /* visited link */
+            .header_stripe a:visited {
+                color: #616161;
+            }
+            /* mouse over link */
+            .header_stripe a:hover {
+                color: #FFFFFF;
+            }
+            /* selected link */
+            .header_stripe a:active {
+                color: #616161;
+            }
+            ul {display: inline;} 
+            ul li { 
+                list-style: none;
+                display: inline;
+                margin-left : 70px;
+                margin-top: 30px;
+                float:right;
+            }
+            .header_stripe {
+                height: 85px;
+                background-color: #FF9900;
+            }
+
+            .logo_color {
+                float:left;
+                width: 120px;
+                height: 82px;
+                background-image:url('logo_color.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat; 
+            }
+            .search_icon {
+                position: relative;
+                float: left;
+                width: 60px;
+                height: 60px;
+                background-image:url('search.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat;
+                cursor: pointer;
+                box-shadow:2px 2px #ffad33 inset, -2px -2px #cc7a00 inset;  
+                background-color: #ffa31a;
+            }
+            .search_icon :hover {
+                background-image:url('search_hovered.png');
+                box-shadow:2px 2px #cc7a00 inset, -2px -2px #ffad33 inset; 
+            }
+            .menu_item{
+                font-family: Bitmap, Geneva, sans-serif;
+                font-size: 14px;
+                font-weight: bold
+            }
+            .logo_greyscale {
+                float:left;
+                width: 120px;
+                height: 82px;
+                background-image:url('logo_greyscale.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat; 
+            }
+            .mod {
+                position:absolute;
+                width:1000px;
+                left: 50%;       
+                margin-left: -500px; /*set to a negative number 1/2 of your width*/
+            }
+            .header {
+                margin-top: 100px;
+            }
+
+            .main_stripe {
+                height: auto;
+                overflow: auto;
+                background-color: #4C4C4C;
+                min-height:800px;
+            }
+
+            .mod {
+                position:relative;
+                width:90%;
+                left: 50%;       
+                margin-left: -45%; /*set to a negative number 1/2 of your width*/
+                float:left;
+            }
+
+            #results_container {
+                margin-top: 100px;
+                width: 100%;
+                height: auto;               
+                overflow: auto;
+            }
+
+            .person_icon {
+                float: left;
+                width:25px;
+                height:70px;
+                margin: 5px;
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat; 
+            }
+
+            .role_header {
+                position: relative;
+                float: left;
+                width:100%;
+                height:50px;
+                margin-bottom: 10px;
+            }
+            .role_name {
+                position: relative;
+                float: left;
+                width:auto;
+                height:50px;
+
+                font-family: Tahoma, Geneva, sans-serif;
+                font-size: 30px;
+                font-weight: bold;
+                color: #FF9900;	
+            }
+
+            .role_name span {
+                display: inline-block;
+                position: relative;
+                margin-top: 15px;
+            }
+
+            .add_icon {
+                position: relative;
+                float: left;
+                width:50px;
+                height:50px;
+                margin-left: 10px;
+                background-image:url('add.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat; 
+                cursor: pointer;
+                box-shadow:2px 2px #666666 inset, -2px -2px #333333 inset; 
+                background-color: #595959;
+            }
+            .add_icon:hover {
+                box-shadow:2px 2px #333333 inset, -2px -2px #666666 inset; 
+                background-image:url('add_hovered.png');
+                background-color: #3f3f3f;
+            }
+            .role_container {
+                position: relative;
+                float: left;
+                width:100%;
+                height: auto;
+                min-height: 80px;
+                overflow: auto;
+                //background-color: green;
+                margin-bottom: 80px;
+                box-shadow:2px 2px #333333 inset, -2px -2px #666666 inset;             
+            }
+            .nameboard {
+                position:absolute;
+                width: auto;
+                height: auto;
+                background-color: #FFFF00;
+                font-family: Tahoma, Geneva, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+                color: #9e532d;	
+                box-shadow: 5px 5px 3px #111111;
+            }
+            .edit_delete_board {
+                position:absolute;
+                width: 120px;
+                height: 60px;
+                background-color: #FFFF00;
+                box-shadow: 5px 5px 3px #111111;
+            }
+            .edit_icon {
+                position: relative;
+                float: left;
+                width: 60px;
+                height: 60px;
+                background-image:url('edit.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat;
+                cursor: pointer;
+                box-shadow:2px 2px #ffff9a inset, -2px -2px #595900 inset; 
+                background-color: #FFFF00;
+            }
+            .edit_icon :hover {
+                background-image:url('edit_hovered.png');
+                box-shadow:2px 2px #595900 inset, -2px -2px #ffff9a inset; 
+            }
+            .delete_icon {
+                position: relative;
+                float: left;
+                width: 60px;
+                height: 60px;
+                background-image:url('delete.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat;
+                cursor: pointer;
+                box-shadow:2px 2px #ffff9a inset, -2px -2px #595900 inset;  
+                background-color: #FFFF00;
+            }
+            .delete_icon :hover {
+                background-image:url('delete_hovered.png');
+                box-shadow:2px 2px #595900 inset, -2px -2px #ffff9a inset; 
+            }
+
+            .save_icon {
+                position: relative;
+                float: left;
+                width: 60px;
+                height: 60px;
+                background-image:url('save.png');
+                background-size:cover; 
+                background-position: center; 
+                background-repeat:no-repeat; 
+                cursor: pointer;
+                box-shadow:2px 2px #ffff9a inset, -2px -2px #595900 inset; 
+                background-color: #ffff4d;
+            }
+            .save_icon :hover {
+                background-image:url('save_hovered.png');
+            }
+
+            .editPersonDiv {
+                position:absolute;
+                width: auto;
+                height: auto;
+                background-color: #FFFF00;
+                box-shadow: 5px 5px 3px #111111;
+            }
+            .addPersonDiv {
+                position:absolute;
+                width: 200px;
+                height: auto;
+                background-color: #FFFF00;
+                box-shadow: 5px 5px 3px #111111;
+            }
+
+            .clear { clear: both; }
+
+            .footer_stripe {
+                height: 85px;
+                overflow: hidden;
+                background-color: #1F1F1F;
+            }
+            .message_to_user {
+                position:absolute;
+                display: table;
+                width: auto;
+                height: 50px;  
+                box-shadow: 5px 5px 3px #111111;
+            }
+            .search_container {
+                float:left;
+                display: table;
+                width: auto;
+                height: auto; 
+                margin-top: 10px;
+                margin-left: 100px;
+            }
+
+        </style>
+    </head>
+
+    <div class="header_stripe">
+        <div class="mod">
+            <div class="logo_color">
+            </div>
+            <div class="search_container" >
+                <div style='display: table-cell; vertical-align: bottom;'>
+                    <input id="search_by_id" type="text" placeholder="Search by id"/>
+                </div>
+                <div class="search_icon" style='margin-left: 10px;'>
+                </div>
+            </div>
+            <ul class="nav-main">
+                <li><a class = "menu_item" href="https://github.com/npgeorgiou/Pixel_Academy" >Git</a></li>
+                <li><a class = "menu_item" id = "present_all_people_link" href="#" >All people</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="main_stripe">
+        <div class="mod">
+            <div id="results_container">
+
+                <div class="role_header" id ="person_found_header">
+                    <div class="role_name">
+                        <span>The guy</span>
+                    </div>
+
+                </div>
+                <div class="role_container" id ="person_found_container">
+                </div>
+
+                <div class="role_header" id ="teachers_header">
+                    <div class="role_name" id ="teachers_role_name">
+                        <span>Teachers</span>
+                    </div>
+                    <div class="add_icon" id ="teachers_add">
+                    </div>
+
+                </div>
+                <div class="role_container" id ="teachers_container">
+                </div>
+                <div class="role_header" id ="teacher_assistants_header">
+                    <div class="role_name" id ="teacher_assistants_role_name">
+                        <span>Teacher Assistants</span>
+                    </div>
+                    <div class="add_icon" id ="teacher_assistants_add">
+                    </div>
+
+                </div>
+                <div class="role_container" id ="teachers_assistants_container">
+                </div>
+                <div class="role_header" id ="students_header">
+                    <div class="role_name" id ="students_role_name">
+                        <span>Students</span>
+                    </div>
+                    <div class="add_icon" id ="students_add">
+                    </div>
+
+                </div>
+                <div class="role_container" id ="students_container">
+                </div>
+                <br class="clear" />
+            </div>
+            <br class="clear" />
+        </div>
+
+    </div>
+    <div class="footer_stripe">
+        <div class="mod">
+            <div class="logo_greyscale">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //load initial people
+            loadPeople();
+            //hide fields
+            var PersonFoundHeader = document.getElementById("person_found_header");
+            $(PersonFoundHeader).hide();
+
+            var PersonFoundContainer = document.getElementById("person_found_container");
+            $(PersonFoundContainer).hide();
+
+
+            var currentActivePersonDiv;
+            var AnimateItemInterval;
+            var clickCoordTop;
+            var clickCoordLeft;
+            var roleToAdd;
+            var roleAddedBefore;
+            var IDthatAddedaRoleBefore;
+
+            document.onclick = docClickHandler;
+            function docClickHandler() {
+                clickCoordTop = event.pageY;
+                clickCoordLeft = event.pageX;
+            }
+
+            //create name board and edit/delete board on hover of person icon******************************************
+            $(document).on("mouseover", ".person_icon", function () {
+
+                //set current active person info
+                currentActivePersonDiv = this;
+                //show person name
+                var person = JSON.parse(currentActivePersonDiv.id);
+                var nameboardDiv = document.createElement("div");
+                nameboardDiv.innerHTML = person.firstName + " " + person.lastName;
+                nameboardDiv.id = "currentNameBoard";
+                var offset = $(this).offset();
+                var top = offset.top + 70;
+                var left = offset.left;
+                nameboardDiv.style.top = (top) + 'px';
+                nameboardDiv.style.left = (left) + 'px';
+                nameboardDiv.className = "nameboard";
+                $(nameboardDiv).appendTo(document.body);
+                var w = document.getElementById("currentNameBoard").offsetWidth;
+                nameboardDiv.style.left = (left - w + w / 2 + 12) + 'px';
+                //show edit/delete board
+                var editDeleteDiv = document.createElement("div");
+                editDeleteDiv.innerHTML = '<div class="edit_icon"></div><div class="delete_icon"></div>';
+                editDeleteDiv.id = "currentEditDeleteBoard";
+                var offset = $(this).offset();
+                var top = offset.top - 50;
+                var left = offset.left;
+                editDeleteDiv.style.top = (top) + 'px';
+                editDeleteDiv.style.left = (left) + 'px';
+                editDeleteDiv.className = "edit_delete_board";
+                $(editDeleteDiv).appendTo(document.body);
+                var w = document.getElementById("currentEditDeleteBoard").offsetWidth;
+                editDeleteDiv.style.left = (left - w + w / 2 + 12) + 'px';
+            });
+            //close nameboard and edit/delete on mouseout**********************************************
+            $(document).on("mouseout", ".person_icon", function () {
+                //delete boards if mouse is not over the edite/delete board
+                var x = event.clientX, y = event.clientY, elementMouseIsOver = document.elementFromPoint(x, y);
+                if (elementMouseIsOver.className === "edit_icon" || elementMouseIsOver.className === "delete_icon") {
+                } else {
+                    document.getElementById("currentNameBoard").remove();
+                    document.getElementById("currentEditDeleteBoard").remove();
+                }
+
+
+
+            });
+            //close nameboard and edit/delete board on mouseout**********************************************
+            $(document).on("mouseleave", ".edit_delete_board", function () {
+                document.getElementById("currentNameBoard").remove();
+                document.getElementById("currentEditDeleteBoard").remove();
+            });
+            //close addPersonDiv on mouseout**********************************************
+            $(document).on("mouseleave", ".addPersonDiv", function () {
+                document.getElementById("openAddPersonDiv").remove();
+            });
+            //attach hover events to dynamically appended icons**********************************************
+            $(document).on("mouseover", ".edit_icon", function () {
+                this.style.backgroundImage = "url('edit_hovered.png')";
+                this.style.boxShadow = "2px 2px #595900 inset, -2px -2px #595900 inset";
+                this.style.backgroundColor = "#cccc00";
+            });
+            $(document).on("mouseover", ".delete_icon", function () {
+                this.style.backgroundImage = "url('delete_hovered.png')";
+                this.style.boxShadow = "2px 2px #595900 inset, -2px -2px #595900 inset";
+                this.style.backgroundColor = "#cccc00";
+            });
+            $(document).on("mouseover", ".save_icon", function () {
+                this.style.backgroundImage = "url('save_hovered.png')";
+                this.style.boxShadow = "2px 2px #595900 inset, -2px -2px #ffff9a inset";
+                this.style.backgroundColor = "#cccc00";
+            });
+            $(document).on("mouseover", ".search_icon", function () {
+                this.style.backgroundImage = "url('search_hovered.png')";
+                this.style.boxShadow = "2px 2px #cc7a00 inset, -2px -2px #ffad33 inset";
+                this.style.backgroundColor = "#e68a00";
+            });
+            //change icons back to grayscale on mouseleave**********************************************
+            $(document).on("mouseleave", ".edit_icon", function () {
+                this.style.backgroundImage = "url('edit.png')";
+                this.style.boxShadow = "2px 2px #ffff9a inset, -2px -2px #595900 inset";
+                this.style.backgroundColor = "#FFFF00";
+            });
+            $(document).on("mouseleave", ".delete_icon", function () {
+                this.style.backgroundImage = "url('delete.png')";
+                this.style.boxShadow = "2px 2px #ffff9a inset, -2px -2px #595900 inset";
+                this.style.backgroundColor = "#FFFF00";
+            });
+            $(document).on("mouseleave", ".save_icon", function () {
+                this.style.backgroundImage = "url('save.png')";
+                this.style.backgroundColor = "#ffff4d";
+                this.style.boxShadow = "2px 2px #ffff9a inset, -2px -2px #595900 inset";
+
+            });
+            $(document).on("mouseleave", ".search_icon", function () {
+                this.style.backgroundImage = "url('search.png')";
+                this.style.backgroundColor = "#ffa31a";
+                this.style.boxShadow = "2px 2px #ffad33 inset, -2px -2px #cc7a00 inset";
+
+            });
+            //create editPersonDiv**********************************************
+            $(document).on("click", ".edit_icon", function () {
+                //get info abt person that we need
+                var person = JSON.parse(currentActivePersonDiv.id);
+                //name
+                var personName = person.firstName + " " + person.lastName;
+                //role(s) and missing roles for checkboxes
+                var roles = "";
+                var possibleRoles = ["Teacher", "Teacher Assistant", "Student"];
+                var roleInfo = person.rolesAtSchool;
+                var roleInfoAsJSon = JSON.stringify(roleInfo);
+                var roleInfoAsJSObject = JSON.parse(roleInfoAsJSon);
+
+                roleInfoAsJSObject.forEach(function (i) {
+                    roles = roles + i.role + ",";
+                    var index = possibleRoles.indexOf(i.role);
+                    if (index > -1) {
+                        possibleRoles.splice(index, 1);
+                    }
+                });
+                roles = roles.substr(0, roles.length - 1);
+                //make checkboxes
+                var it = 1;
+                var checkboxesHTML = "";
+                possibleRoles.forEach(function (r) {
+                    checkboxesHTML += "<input id='checkbox" + it + "' type='checkbox' name='role' value='" + r + "'><label for='checkbox" + it + "'>" + r + "</label><br><br>";
+                    it++;
+                });
+                checkboxesHTML = checkboxesHTML.substr(0, checkboxesHTML.length - 8);
+                //img
+                var image = currentActivePersonDiv.style.backgroundImage;
+                image = image.replace(")", "");
+                var imageSplitArray = image.split("/");
+                image = imageSplitArray[imageSplitArray.length - 1];
+                //create edit div
+                var editPersonDiv = document.createElement("div");
+                editPersonDiv.innerHTML = "<div  style=' float: left; width:25px; height:70px; margin: 5px;background-size:cover; background-position: center; background-repeat:no-repeat;background-image:url(" + image + ") ' > </div> <div style=' float: left; width:auto; height:70px; margin: 5px; '> <div style=' clear: both; height:35px; width:auto; float:left; font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-weight: bold; color: #9e532d;'> " + personName + "</div> <div style=' height:35px; width:auto; clear: left; float:left; font-family: Tahoma, Geneva, sans-serif; font-size: 14px; font-weight: bold; color: #2D9E53;'>" + roles + "</div> </div> <div style=' clear: both; width:auto; height:35px; margin: 5px; margin-top: 20px; float:left; font-family: Tahoma, Geneva, sans-serif; font-size: 20px; font-weight: bold; color: #9e532d;'> Add a role </div> <div style=' clear: both; width:auto; height:auto; margin: 5px; float:left; font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-weight: bold; color: #2D9E53;'> <form action=''>" + checkboxesHTML + "</form> </div> <div id='extraForms' style= 'clear: both; width:auto; height:auto; margin: 5px; float:left;'> </div><div class = 'save_icon' id = 'save_icon_for_edit' style=' clear: both; width:60px; height:60px; margin: 5px; float:right;'>  </div>";
+                editPersonDiv.id = "openEditPersonDiv";
+                var x = event.pageX, y = event.pageY;
+                editPersonDiv.style.top = (y) + 'px';
+                editPersonDiv.style.left = (x) + 'px';
+                editPersonDiv.className = "editPersonDiv";
+                $(editPersonDiv).appendTo(document.body);
+                var w = document.getElementById("openEditPersonDiv").offsetWidth;
+                var l = document.getElementById("openEditPersonDiv").offsetHeight;
+                //make left be no less than 10
+                var newLeft = x - w + w / 2;
+                if (newLeft < 10) {
+                    newLeft = 10;
+                }
+                editPersonDiv.style.left = (newLeft) + 'px';
+                editPersonDiv.style.top = (y - l + l / 2) + 'px';
+            });
+            //create addPersonDiv**********************************************
+            $(document).on("click", ".add_icon", function () {
+                //get role of future person
+                var iconID = this.id;
+                var innerhtml;
+                if (iconID === "teachers_add") {
+                    roleToAdd = "Teacher";
+                    innerhtml = "<div style ='margin-left: 11px; font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-weight: bold; color: #9e532d;'>New " + roleToAdd + "</div><br><div style ='margin-left: 11px;'><input id='fname' type='text' placeholder='First name'/></div><div style ='margin-left: 11px;'><input id='lname' type='text' placeholder='Last name'/></div><div style ='margin-left: 11px;'><input id='email'  type='text' placeholder='Email'/></div><div style ='margin-left: 11px;'><input id='phone'  type='text' placeholder='phone'/></div><div style ='margin-left: 11px;'><input id='degree'  type='text' placeholder='Degree'/></div><div style ='margin-left: 11px;'><input id='date'  type='text' placeholder='Hiring Date (YYYY-MM-DD)'/></div><div class = 'save_icon' id = 'save_icon_for_add' style=' clear: both; width:60px; height:60px; margin: 5px; float:right;'></div>";
+                }
+                if (iconID === "teacher_assistants_add") {
+                    roleToAdd = "Teacher Assistant";
+                    innerhtml = "<div style ='margin-left: 11px; font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-weight: bold; color: #9e532d;'>New " + roleToAdd + "</div><br><div style ='margin-left: 11px;'><input id='fname' type='text' placeholder='First name'/></div><div style ='margin-left: 11px;'><input id='lname' type='text' placeholder='Last name'/></div><div style ='margin-left: 11px;'><input id='email'  type='text' placeholder='Email'/></div><div style ='margin-left: 11px;'><input id='phone'  type='text' placeholder='phone'/></div><div class = 'save_icon' id = 'save_icon_for_add' style=' clear: both; width:60px; height:60px; margin: 5px; float:right;'></div>";
+                }
+                if (iconID === "students_add") {
+                    roleToAdd = "Student";
+                    innerhtml = "<div style ='margin-left: 11px; font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-weight: bold; color: #9e532d;'>New " + roleToAdd + "</div><br><div style ='margin-left: 11px;'><input id='fname' type='text' placeholder='First name'/></div><div style ='margin-left: 11px;'><input id='lname' type='text' placeholder='Last name'/></div><div style ='margin-left: 11px;'><input id='email'  type='text' placeholder='Email'/></div><div style ='margin-left: 11px;'><input id='phone'  type='text' placeholder='phone'/></div><div style ='margin-left: 11px;'><input id='semester'  type='text' placeholder='Semester (no numbers)'/></div><div class = 'save_icon' id = 'save_icon_for_add' style=' clear: both; width:60px; height:60px; margin: 5px; float:right;'></div>";
+                }
+
+                //create add div
+                var addPersonDiv = document.createElement("div");
+                //see which roles to present in checkboxes
+                addPersonDiv.innerHTML = innerhtml;
+                addPersonDiv.id = "openAddPersonDiv";
+                var x = event.pageX, y = event.pageY;
+                addPersonDiv.style.top = (y) + 'px';
+                addPersonDiv.style.left = (x) + 'px';
+                addPersonDiv.className = "addPersonDiv";
+                $(addPersonDiv).appendTo(document.body);
+                var w = document.getElementById("openAddPersonDiv").offsetWidth;
+                var l = document.getElementById("openAddPersonDiv").offsetHeight;
+                //make left be no less than 10
+                var newLeft = x - w + w / 2;
+                if (newLeft < 10) {
+                    newLeft = 10;
+                }
+                addPersonDiv.style.left = (newLeft) + 'px';
+                addPersonDiv.style.top = (y - l + l / 2) + 'px';
+            });
+            //search for person and present**********************************************
+            $(document).on("click", ".search_icon", function () {
+                //TODO check input
+                var input = $("#search_by_id").val();
+                if (input === "" || isNaN(input) === true) {
+                    //create message to user
+                    CreateMessage("Write a number", "#CC0000");
+                    //start animating message
+                    if (AnimateItemInterval !== null) {
+                        clearInterval(AnimateItemInterval);
+                    }
+                    AnimateItemInterval = setInterval(function () {
+                        AnimateMessage();
+                    }, 40);
+                } else {
+                    //hide fields
+                    var ElementsToHide = document.getElementsByClassName("role_header");
+                    for (var j = 0; j < ElementsToHide.length; j++) {
+                        $(ElementsToHide[j]).hide();
+                    }
+                    var ElementsToHide = document.getElementsByClassName("role_container");
+                    for (var j = 0; j < ElementsToHide.length; j++) {
+                        $(ElementsToHide[j]).hide();
+                    }
+                    //empty previous search person_icons
+                    var ElementsToDelete = document.getElementById('person_found_container').children;
+                    for (var j = 0; j < ElementsToDelete.length; j++) {
+                        $(ElementsToDelete[j]).remove();
+                    }
+                    //appear fields
+                    $(PersonFoundHeader).show();
+                    $(PersonFoundContainer).show();
+                    //load data
+                    var id = $("#search_by_id").val();
+                    $.ajax({
+                        url: "../person/" + id,
+                        type: "GET",
+                        dataType: 'json',
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //create message to user
+                            CreateMessage("Something went wrong: " + errorThrown, "#CC0000");
+                            //start animating message
+                            if (AnimateItemInterval !== null) {
+                                clearInterval(AnimateItemInterval);
+                            }
+                            AnimateItemInterval = setInterval(function () {
+                                AnimateMessage();
+                            }, 40);
+                        }
+                    }).done(function (p) {
+
+                        // see the persons role  
+                        var roleInfo = p.rolesAtSchool;
+                        var roleInfoAsJSon = JSON.stringify(roleInfo);
+                        var roleInfoAsJSObject = JSON.parse(roleInfoAsJSon);
+
+                        //create and append person icon according to role
+                        switch (roleInfoAsJSObject[0].role) {
+
+                            case "Teacher":
+                                //give a random image of the 6 possible
+                                var randomNumber = Math.floor(Math.random() * 6) + 1
+                                var imageUrl = "";
+                                if (randomNumber === 1) {
+                                    imageUrl = "teacher1.png";
+                                }
+                                else if (randomNumber === 2) {
+                                    imageUrl = "teacher2.png";
+                                }
+                                else if (randomNumber === 3) {
+                                    imageUrl = "teacher3.png";
+                                }
+                                else if (randomNumber === 4) {
+                                    imageUrl = "teacher4.png";
+                                }
+                                else if (randomNumber === 5) {
+                                    imageUrl = "teacher5.png";
+                                } else if (randomNumber === 6) {
+                                    imageUrl = "teacher6.png";
+                                }
+                                else {
+                                    imageUrl = "teacher1.png";
+                                }
+
+                                break;
+                            case "Teacher Assistant":
+                                //give a random image of the 6 possible
+                                var randomNumber = Math.floor(Math.random() * 6) + 1
+                                var imageUrl = "";
+                                if (randomNumber === 1) {
+                                    imageUrl = "teacher_assistant1.png";
+                                }
+                                else if (randomNumber === 2) {
+                                    imageUrl = "teacher_assistant2.png";
+                                }
+                                else if (randomNumber === 3) {
+                                    imageUrl = "teacher_assistant3.png";
+                                }
+                                else if (randomNumber === 4) {
+                                    imageUrl = "teacher_assistant4.png";
+                                }
+                                else if (randomNumber === 5) {
+                                    imageUrl = "teacher_assistant5.png";
+                                } else if (randomNumber === 6) {
+                                    imageUrl = "teacher_assistant6.png";
+                                }
+                                else {
+                                    imageUrl = "teacher_assistant1.png";
+                                }
+                                break;
+                            case "Student":
+                                //give a random image of the 10 possible
+                                var randomNumber = Math.floor(Math.random() * 10) + 1
+                                var imageUrl = "";
+                                if (randomNumber === 1) {
+                                    imageUrl = "student1.png";
+                                }
+                                else if (randomNumber === 2) {
+                                    imageUrl = "student2.png";
+                                }
+                                else if (randomNumber === 3) {
+                                    imageUrl = "student3.png";
+                                }
+                                else if (randomNumber === 4) {
+                                    imageUrl = "student4.png";
+                                }
+                                else if (randomNumber === 5) {
+                                    imageUrl = "student5.png";
+                                }
+                                else if (randomNumber === 6) {
+                                    imageUrl = "student6.png";
+                                }
+                                else if (randomNumber === 7) {
+                                    imageUrl = "student7.png";
+                                }
+                                else if (randomNumber === 8) {
+                                    imageUrl = "student8.png";
+                                }
+                                else if (randomNumber === 9) {
+                                    imageUrl = "student9.png";
+                                }
+                                else if (randomNumber === 10) {
+                                    imageUrl = "student10.png";
+                                }
+                                else {
+                                    imageUrl = "student1.png";
+                                }
+                                break;
+                        }
+                        var personDiv = document.createElement("div");
+                        personDiv.style.backgroundImage = "url(" + imageUrl + ")";
+                        personDiv.className = "person_icon";
+                        personDiv.id = JSON.stringify(p);
+                        $("#person_found_container").append(personDiv);
+                    });
+
+                }
+
+
+
+
+
+
+            });
+            //search for all persons and present**********************************************
+            $(document).on("click", "#present_all_people_link", function () {
+                //appear fields and delete container divs
+                var ElementsToHide = document.getElementsByClassName("role_header");
+                for (var j = 0; j < ElementsToHide.length; j++) {
+                    $(ElementsToHide[j]).show();
+                }
+                var ElementsToHide = document.getElementsByClassName("role_container");
+                for (var j = 0; j < ElementsToHide.length; j++) {
+                    $(ElementsToHide[j]).show();
+                    var ElementsToDelete = ElementsToHide[j].children;
+                    while (ElementsToDelete.length > 0) {
+                        ElementsToDelete[0].parentNode.removeChild(ElementsToDelete[0]);
+                    }
+                }
+                //empty previous search person_icons
+
+                //hide search fields
+                $(PersonFoundHeader).hide();
+                $(PersonFoundContainer).hide();
+
+
+                //load data
+                loadPeople();
+
+            });
+            //close editPersonDiv on mouseleave**********************************************
+            $(document).on("mouseleave", ".editPersonDiv", function () {
+                this.remove();
+            });
+            //make sure only one checkbox is selected**********************************************
+            $(document).on("click", "#checkbox1, #checkbox2", function () {
+                //make sure only one checkbox is selected and appear/hide extra input
+                var checkbox1 = document.getElementById("checkbox1");
+                var checkbox2 = document.getElementById("checkbox2");
+
+                var roleClicked;
+                if (checkbox2 !== null) {
+                    if (checkbox1.checked === true || checkbox2.checked === true) {
+                        if (this.id === "checkbox1") {
+                            document.getElementById('checkbox2').checked = false;
+                            roleClicked = this.value;
+                            document.getElementById('extraForms').innerHTML = "";
+                        } else {
+                            document.getElementById('checkbox1').checked = false;
+                            roleClicked = this.value;
+                            document.getElementById('extraForms').innerHTML = "";
+                        }
+                    } else {
+                        document.getElementById('extraForms').innerHTML = "";
+                    }
+
+                } else {
+                    roleClicked = this.value;
+                    document.getElementById('extraForms').innerHTML = "";
+                }
+                //present fields for additional post data required
+                switch (roleClicked) {
+                    case "Teacher":
+                        document.getElementById('extraForms').innerHTML = "<div style ='margin-left: 11px;'><input id='degree'  type='text' placeholder='Degree'/></div><div style ='margin-left: 11px;'><input id='date'  type='text' placeholder='Hiring Date (YYYY-MM-DD)'/></div>";
+                        break;
+                    case "Teacher Assistant":
+                        break;
+                    case "Student":
+                        document.getElementById('extraForms').innerHTML = "<div style ='margin-left: 11px;'><input id='semester'  type='text' placeholder='Semester (no numbers)'/></div>";
+                        break;
+                }
+
+
+
+            });
+            //make ajax DELETE call**********************************************
+            $(document).on("click", ".delete_icon", function () {
+                //get id of person
+                person = JSON.parse(currentActivePersonDiv.id);
+                var personId = person.id;
+                $.ajax({
+                    url: "../person/" + personId,
+                    type: "DELETE",
+                    dataType: 'json',
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        //create message to user
+                        CreateMessage("Something went wrong: " + textStatus, "#CC0000");
+                        //start animating message
+                        if (AnimateItemInterval !== null) {
+                            clearInterval(AnimateItemInterval);
+                        }
+                        AnimateItemInterval = setInterval(function () {
+                            AnimateMessage();
+                        }, 40);
+                    }
+                }).done(function () {
+                    //create message to user
+                    CreateMessage("Deleted", "#006B00");
+                    //start animating message
+                    if (AnimateItemInterval !== null) {
+                        clearInterval(AnimateItemInterval);
+                    }
+                    AnimateItemInterval = setInterval(function () {
+                        AnimateMessage();
+                    }, 40);
+                    //reload people
+                    var divsToRemove = document.getElementsByClassName("person_icon");
+                    while (divsToRemove.length > 0) {
+                        divsToRemove[0].parentNode.removeChild(divsToRemove[0]);
+                    }
+                    loadPeople();
+                });
+            });
+            //make ajax POST /Role call**********************************************
+            $(document).on("click", "#save_icon_for_edit", function () {
+                var checkbox1 = document.getElementById("checkbox1");
+                var checkbox2 = document.getElementById("checkbox2");
+                if (checkbox1.checked === true || checkbox2.checked === true) {
+                    //get id of person
+                    person = JSON.parse(currentActivePersonDiv.id);
+                    var personId = person.id;
+                    //get new role
+                    var newRole;
+                    if (checkbox1.checked === true) {
+                        newRole = checkbox1.value;
+                    } else {
+                        if (checkbox2.checked === true) {
+                            newRole = checkbox2.value;
+                        }
+                    }
+                    //check if all fields are set
+                    var allSet = true;
+                    if (newRole === "Teacher") {
+                        var degree = $("#degree").val();
+                        var date = $("#date").val();
+                        if (degree === "" || date === "") {
+                            allSet = false;
+                        }
+                    }
+                    if (newRole === "Teacher Assistant") {
+                    }
+                    if (newRole === "Student") {
+                        var semester = $("#semester").val();
+                        if (semester === "") {
+                            allSet = false;
+                        }
+                    }
+
+                    if (allSet === false) {
+                        //create message to user
+                        CreateMessage("Fill all fields", "#CC0000");
+                        //start animating message
+                        if (AnimateItemInterval !== null) {
+                            clearInterval(AnimateItemInterval);
+                        }
+                        AnimateItemInterval = setInterval(function () {
+                            AnimateMessage();
+                        }, 40);
+                    } else {
+                        //check input
+                        var allInputOK = true;
+                        if (newRole === "Teacher") {
+                            if (!degree.match(/^[a-zA-Z]+$/))
+                            {
+                                allInputOK = false;
+                            }
+                            if (!date.match(/(\d{4})-(\d{2})-(\d{2})/))
+                            {
+                                allInputOK = false;
+                            }
+                        }
+                        if (newRole === "Student") {
+                            if (!semester.match(/^[a-zA-Z]+$/))
+                            {
+                                allInputOK = false;
+                            }
+                        }
+
+                        if (allInputOK === false) {
+                            //create message to user
+                            CreateMessage("Correct input pls", "#CC0000");
+                            //start animating message
+                            if (AnimateItemInterval !== null) {
+                                clearInterval(AnimateItemInterval);
+                            }
+                            AnimateItemInterval = setInterval(function () {
+                                AnimateMessage();
+                            }, 40);
+
+                        } else {
+                            //get rest of data for post request
+                            var roleInfo;
+                            switch (newRole) {
+                                case "Teacher":
+                                    var degree = $("#degree").val();
+                                    roleInfo = {"degree": degree, "roleName": newRole};
+                                    break;
+                                case "Teacher Assistant":
+                                    roleInfo = {"roleName": newRole};
+                                    break;
+                                case "Student":
+                                    var semester = $("#semester").val();
+                                    roleInfo = {"semester": semester, "roleName": newRole};
+                                    break;
+                            }
+                            //perform check to avoid double role add for same id
+                            if (personId === IDthatAddedaRoleBefore && newRole === roleAddedBefore) {
+                                //create message to user
+                                CreateMessage("Added that before", "#CC0000");
+                                //start animating message
+                                if (AnimateItemInterval !== null) {
+                                    clearInterval(AnimateItemInterval);
+                                }
+                                AnimateItemInterval = setInterval(function () {
+                                    AnimateMessage();
+                                }, 40);
+                            } else {
+
+                                $.ajax({
+                                    url: "../role/" + personId,
+                                    type: "POST",
+                                    data: JSON.stringify(roleInfo),
+                                    dataType: 'json',
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //create message to user
+                                        CreateMessage("Something went wrong: " + textStatus, "#CC0000");
+                                        //start animating message
+                                        if (AnimateItemInterval !== null) {
+                                            clearInterval(AnimateItemInterval);
+                                        }
+                                        AnimateItemInterval = setInterval(function () {
+                                            AnimateMessage();
+                                        }, 40);
+                                    }
+                                }).done(function () {
+                                    //sucessfull, so set info to avoid double entries
+                                    IDthatAddedaRoleBefore = personId;
+                                    roleAddedBefore = newRole;
+                                    //reload people
+                                    var divsToRemove = document.getElementsByClassName("person_icon");
+                                    while (divsToRemove.length > 0) {
+                                        divsToRemove[0].parentNode.removeChild(divsToRemove[0]);
+                                    }
+                                    loadPeople();
+                                    //create message to user
+                                    CreateMessage("Added", "#006B00");
+                                    //start animating message
+                                    if (AnimateItemInterval !== null) {
+                                        clearInterval(AnimateItemInterval);
+                                    }
+                                    AnimateItemInterval = setInterval(function () {
+                                        AnimateMessage();
+                                    }, 40);
+
+
+                                });
+                            }
+                        }
+
+                    }
+                } else {
+                    //create message to user
+                    CreateMessage("Select a role", "#CC0000");
+                    //start animating message
+                    if (AnimateItemInterval !== null) {
+                        clearInterval(AnimateItemInterval);
+                    }
+                    AnimateItemInterval = setInterval(function () {
+                        AnimateMessage();
+                    }, 40);
+
+                }
+            });
+            //make ajax POST /Person call**********************************************
+            $(document).on("click", "#save_icon_for_add", function () {
+                //check if all fields are set
+                var allSet = true;
+                if (roleToAdd === "Teacher") {
+                    var fName = $("#fname").val();
+                    var lName = $("#lname").val();
+                    var email = $("#email").val();
+                    var phone = $("#phone").val();
+                    var degree = $("#degree").val();
+                    var date = $("#date").val();
+                    if (fName === "" || lName === "" || email === "" || phone === "" || degree === "" || date === "") {
+                        allSet = false;
+                    }
+                }
+                if (roleToAdd === "Teacher Assistant") {
+                    var fName = $("#fname").val();
+                    var lName = $("#lname").val();
+                    var email = $("#email").val();
+                    var phone = $("#phone").val();
+                    if (fName === "" || lName === "" || email === "" || phone === "") {
+                        allSet = false;
+                    }
+                }
+                if (roleToAdd === "Student") {
+                    var fName = $("#fname").val();
+                    var lName = $("#lname").val();
+                    var email = $("#email").val();
+                    var phone = $("#phone").val();
+                    var semester = $("#semester").val();
+                    if (fName === "" || lName === "" || email === "" || phone === "" || semester === "") {
+                        allSet = false;
+                    }
+                }
+
+                if (allSet === false) {
+                    //create message to user
+                    CreateMessage("Fill all fields", "#CC0000");
+                    //start animating message
+                    if (AnimateItemInterval !== null) {
+                        clearInterval(AnimateItemInterval);
+                    }
+                    AnimateItemInterval = setInterval(function () {
+                        AnimateMessage();
+                    }, 40);
+                } else {
+                    //check input
+                    var allInputOK = true;
+                    if (!fName.match(/^[a-zA-Z]+$/))
+                    {
+                        allInputOK = false;
+                    }
+                    if (!lName.match(/^[a-zA-Z]+$/))
+                    {
+                        allInputOK = false;
+                    }
+                    if (!email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+                    {
+                        allInputOK = false;
+                    }
+                    if (!phone.match(/^-{0,1}\d*\.{0,1}\d+$/))
+                    {
+                        allInputOK = false;
+                    }
+                    if (roleToAdd === "Teacher") {
+                        if (!degree.match(/^[a-zA-Z]+$/))
+                        {
+                            allInputOK = false;
+                        }
+                        if (!date.match(/(\d{4})-(\d{2})-(\d{2})/))
+                        {
+                            allInputOK = false;
+                        }
+                    }
+                    if (roleToAdd === "Student") {
+                        if (!semester.match(/^[a-zA-Z]+$/))
+                        {
+                            allInputOK = false;
+                        }
+                    }
+
+                    if (allInputOK === false) {
+                        //create message to user
+                        CreateMessage("Correct input pls", "#CC0000");
+                        //start animating message
+                        if (AnimateItemInterval !== null) {
+                            clearInterval(AnimateItemInterval);
+                        }
+                        AnimateItemInterval = setInterval(function () {
+                            AnimateMessage();
+                        }, 40);
+
+                    } else {
+
+                        //create new person
+                        var newPerson = {"firstName": fName, "lastName": lName, "phone": phone, "eMail": email};
+                        $.ajax({url: "../person",
+                            data: JSON.stringify(newPerson), //Convert newPerson to JSON
+                            type: "post",
+                            dataType: 'json',
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //create message to user
+                                CreateMessage("Something went wrong: " + textStatus, "#CC0000");
+                                //start animating message
+                                if (AnimateItemInterval !== null) {
+                                    clearInterval(AnimateItemInterval);
+                                }
+                                AnimateItemInterval = setInterval(function () {
+                                    AnimateMessage();
+                                }, 40);
+                            }
+                        }).done(function (data) {
+                            //add role to person
+                            //get id of person
+                            var id = data.id;
+                            //get roleInfo to pass as post data
+                            if (roleToAdd === "Teacher") {
+                                var roleInfo = {"date": date, "degree": degree, "roleName": roleToAdd};
+                            }
+                            if (roleToAdd === "Teacher Assistant") {
+                                var roleInfo = {"roleName": roleToAdd};
+                            }
+                            if (roleToAdd === "Student") {
+                                var roleInfo = {"semester": semester, "roleName": roleToAdd};
+                            }
+
+                            $.ajax({
+                                url: "../role/" + id,
+                                data: JSON.stringify(roleInfo), //Convert newPerson to JSON
+                                type: "post",
+                                dataType: 'json',
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    //create message to user
+                                    CreateMessage("Something went wrong: " + textStatus, "#CC0000");
+                                    //start animating message
+                                    if (AnimateItemInterval !== null) {
+                                        clearInterval(AnimateItemInterval);
+                                    }
+                                    AnimateItemInterval = setInterval(function () {
+                                        AnimateMessage();
+                                    }, 40);
+                                }
+                            }).done(function (data) {                             //reload people
+                                var divsToRemove = document.getElementsByClassName("person_icon");
+                                while (divsToRemove.length > 0) {
+                                    divsToRemove[0].parentNode.removeChild(divsToRemove[0]);
+                                }
+                                loadPeople();
+                                //create message to user
+                                CreateMessage("Added", "#006B00");
+                                //start animating message
+                                if (AnimateItemInterval !== null) {
+                                    clearInterval(AnimateItemInterval);
+                                }
+                                AnimateItemInterval = setInterval(function () {
+                                    AnimateMessage();
+                                }, 40);
+                            });
+                        });
+                    }
+                }
+
+            });
+            function loadPeople() {
+                $.ajax({
+                    url: "../person",
+                    type: 'GET',
+                    dataType: 'json',
+                    error: function (data, textStatus, jqXHR) {
+                        var jsonResponse = JSON.parse(data.responseText);
+                    }
+                }).done(function (data) {
+                    //set search placeholder
+                    if (data.length > 0) {
+                        $("#search_by_id").val("");
+                        document.getElementById("search_by_id").placeholder = "Search by id (Example: " + data[0].id + ")";
+                    }
+
+                    data.forEach(function (p) {
+                        idForSearchPlaceholder = p.id;
+                        var imageUrl = "";
+                        var imageUsedForSamePerson = "";
+                        var imageIsSet = false;
+                        // see the persons role                      
+                        var roleInfo = p.rolesAtSchool;
+                        var roleInfoAsJSon = JSON.stringify(roleInfo);
+                        var roleInfoAsJSObject = JSON.parse(roleInfoAsJSon);
+
+                        //get all roles for each person
+                        roleInfoAsJSObject.forEach(function (i) {
+                            //create and append person icon according to role
+                            switch (i.role) {
+
+                                case "Teacher":
+                                    if (imageIsSet === true) {
+                                        imageUrl = imageUsedForSamePerson;
+                                    } else {
+                                        //give a random image of the 6 possible
+                                        var randomNumber = Math.floor(Math.random() * 6) + 1
+
+                                        if (randomNumber === 1) {
+                                            imageUrl = "teacher1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 2) {
+                                            imageUrl = "teacher2.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 3) {
+                                            imageUrl = "teacher3.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 4) {
+                                            imageUrl = "teacher4.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 5) {
+                                            imageUrl = "teacher5.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        } else if (randomNumber === 6) {
+                                            imageUrl = "teacher6.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else {
+                                            imageUrl = "teacher1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                    }
+                                    var personDiv = document.createElement("div");
+                                    personDiv.style.backgroundImage = "url(" + imageUrl + ")";
+                                    personDiv.className = "person_icon";
+                                    personDiv.id = JSON.stringify(p);
+                                    $("#teachers_container").append(personDiv);
+                                    break;
+
+                                case "Teacher Assistant":
+                                    if (imageIsSet === true) {
+                                        imageUrl = imageUsedForSamePerson;
+                                    } else {
+                                        //give a random image of the 6 possible
+                                        var randomNumber = Math.floor(Math.random() * 6) + 1
+                                        if (randomNumber === 1) {
+                                            imageUrl = "teacher_assistant1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 2) {
+                                            imageUrl = "teacher_assistant2.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 3) {
+                                            imageUrl = "teacher_assistant3.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 4) {
+                                            imageUrl = "teacher_assistant4.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 5) {
+                                            imageUrl = "teacher_assistant5.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        } else if (randomNumber === 6) {
+                                            imageUrl = "teacher_assistant6.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else {
+                                            imageUrl = "teacher_assistant1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                    }
+                                    var personDiv = document.createElement("div");
+                                    personDiv.style.backgroundImage = "url(" + imageUrl + ")";
+                                    personDiv.className = "person_icon";
+                                    personDiv.id = JSON.stringify(p);
+                                    $("#teachers_assistants_container").append(personDiv);
+                                    break;
+
+                                case "Student":
+                                    if (imageIsSet === true) {
+                                        imageUrl = imageUsedForSamePerson;
+                                    } else {
+                                        //give a random image of the 10 possible
+                                        var randomNumber = Math.floor(Math.random() * 10) + 1
+                                        if (randomNumber === 1) {
+                                            imageUrl = "student1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 2) {
+                                            imageUrl = "student2.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 3) {
+                                            imageUrl = "student3.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 4) {
+                                            imageUrl = "student4.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 5) {
+                                            imageUrl = "student5.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 6) {
+                                            imageUrl = "student6.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 7) {
+                                            imageUrl = "student7.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 8) {
+                                            imageUrl = "student8.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 9) {
+                                            imageUrl = "student9.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else if (randomNumber === 10) {
+                                            imageUrl = "student10.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                        else {
+                                            imageUrl = "student1.png";
+                                            imageUsedForSamePerson = imageUrl;
+                                            imageIsSet = true;
+                                        }
+                                    }
+                                    var personDiv = document.createElement("div");
+                                    personDiv.style.backgroundImage = "url(" + imageUrl + ")";
+                                    personDiv.className = "person_icon";
+                                    personDiv.id = JSON.stringify(p);
+                                    $("#students_container").append(personDiv);
+                                    break;
+
+                            }
+
+                        });
+                    });
+                });
+            }
+            function CreateMessage(message, color) {
+                var messageDiv = document.createElement("div");
+                messageDiv.id = "currentMessageDiv";
+                messageDiv.innerHTML = "<div style='display: table-cell; vertical-align: middle;'><div style= 'margin-left:15px; margin-right:15px;'>" + message + "</div></div>";
+
+                messageDiv.style.backgroundColor = color;
+                messageDiv.style.color = "white";
+                messageDiv.style.fontSize = "14";
+                messageDiv.style.fontWeight = "bold";
+                messageDiv.style.opacity = 0.1;
+
+                messageDiv.style.cursor = "default";
+                messageDiv.className = "message_to_user";                 //TODO: if positioning of div takes it out of right screen border, move it
+
+                //give second class that represents direction of fade
+                messageDiv.className += ' up';
+                //var x = event.pageX, y = event.pageY;
+                messageDiv.style.top = (clickCoordTop - 70) + 'px';
+                messageDiv.style.left = (clickCoordLeft + 10) + 'px';
+
+                $(messageDiv).appendTo(document.body);
+                //if div outside screen borders, confine it to screen
+                var rect = messageDiv.getBoundingClientRect();
+                var right = rect.right;
+                var left = rect.left;
+                var top = rect.top;
+                var bottom = rect.bottom;
+                var w = messageDiv.offsetWidth;
+                if (left <= 0) {
+                    messageDiv.style.left = (1) + 'px';
+                }
+                if (top <= 0) {
+                    messageDiv.style.top = (1) + 'px';
+                }
+                if (left + w >= $(window).width()) {
+                    messageDiv.style.left = ($(window).width() - w - 10) + 'px';
+                }
+            }
+            function AnimateMessage() {
+                var movingIcon_divs = document.getElementsByClassName("message_to_user");
+                for (var i = 0; i < movingIcon_divs.length; i++) {
+                    var currentMovingDiv = movingIcon_divs[i];
+                    //get alpha of div; 
+                    var alpha = parseFloat(window.getComputedStyle(currentMovingDiv, null).getPropertyValue("opacity"));
+                    //get second class of div, up or down. It represents the direction of the fade
+                    var directionOfOpacity;
+                    if (currentMovingDiv.className === "message_to_user up") {
+                        directionOfOpacity = "up";
+                    } else {
+                        directionOfOpacity = "down";
+                    }
+                    if (directionOfOpacity === "up") {
+                        if (alpha > 0.8) {
+                            alpha += 0.02;
+                        } else {
+                            alpha += 0.05;
+                        }
+
+                        currentMovingDiv.style.opacity = alpha;
+                    } else {
+                        if (alpha > 0.8) {
+                            alpha -= 0.02;
+                        } else {
+                            alpha -= 0.05;
+                        }
+                        currentMovingDiv.style.opacity = alpha;
+                    }
+
+                    if (alpha > 1) {
+                        currentMovingDiv.className = "message_to_user down";
+                    } else if (alpha < 0.1) {
+                        currentMovingDiv.className = "message_to_user up";
+                    } else {
+                    }
+                    if (alpha < 0.1) {
+                        currentMovingDiv.remove();
+                        if (movingIcon_divs.length === 0) {
+                            clearInterval(AnimateItemInterval);
+                        }
+                    }
+                }
+
+            }
+
+        });
+    </script>
+
+
+</html>
