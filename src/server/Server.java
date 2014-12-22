@@ -27,7 +27,7 @@ public class Server {
 
     static int port = 8080;
 //    static String ip = "localhost";
-    static String ip = "100.85.130.5";
+    static String ip = "100.85.88.11";
     static String publicFolder = "src/htmlFiles/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
