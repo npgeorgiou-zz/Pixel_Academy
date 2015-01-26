@@ -19,15 +19,12 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import model.RoleSchool;
 
-/**
- *
- * @author Artur
- */
+
 public class Server {
 
-    static int port = 8080;
+    static int port = 7070;
 //    static String ip = "localhost";
-    static String ip = "100.85.88.11";
+    static String ip = "100.74.184.141";
     static String publicFolder = "src/htmlFiles/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
